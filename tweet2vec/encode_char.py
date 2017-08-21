@@ -4,7 +4,7 @@ import theano
 import theano.tensor as T
 import sys
 import batch_char as batch
-import cPickle as pkl
+import _pickle as pkl
 import io
 
 from t2v import tweet2vec, init_params, load_params

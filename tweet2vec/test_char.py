@@ -6,7 +6,7 @@ import random
 import sys
 import batch_char as batch
 import time
-import cPickle as pkl
+import _pickle as pkl
 import io
 import evaluate
 
@@ -95,13 +95,13 @@ def main(args):
 
     # Save
     print("Saving...")
-    with open('%s/data.pkl'%save_path,'w') as f:
+    with open('%s/data.pkl'%save_path,'wb') as f:
         pkl.dump(out_data,f)
-    with open('%s/predictions.npy'%save_path,'w') as f:
+    with open('%s/predictions.npy'%save_path,'wb') as f:
         np.save(f,np.asarray(out_pred))
-    with open('%s/embeddings.npy'%save_path,'w') as f:
+    with open('%s/embeddings.npy'%save_path,'wb') as f:
         np.save(f,np.asarray(out_emb))
-    with open('%s/targets.pkl'%save_path,'w') as f:
+    with open('%s/targets.pkl'%save_path,'wb') as f:
         pkl.dump(out_target,f)
 
 

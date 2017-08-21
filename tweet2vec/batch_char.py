@@ -1,5 +1,5 @@
 import numpy as np
-import cPickle as pkl
+import _pickle as pkl
 import codecs
 
 from collections import OrderedDict
@@ -34,7 +34,7 @@ class BatchTweets():
         self.curr_pos = 0
         self.curr_remaining = len(self.curr_indices)
 
-    def next(self):
+    def __next__(self):
         if self.curr_pos >= len(self.indices):
             self.reset()
             raise StopIteration()
@@ -103,7 +103,7 @@ def save_dictionary(worddict, wordcount, loc):
     """
     Save a dictionary to the specified location 
     """
-    with open(loc, 'w') as f:
+    with open(loc, 'wb') as f:
         pkl.dump(worddict, f)
         pkl.dump(wordcount, f)
 

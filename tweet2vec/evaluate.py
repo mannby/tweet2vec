@@ -3,7 +3,7 @@ For evaluating precision and recall metrics
 '''
 import numpy as np
 import sys
-import cPickle as pkl
+import _pickle as pkl
 import io
 
 import matplotlib.pyplot as plt
@@ -58,23 +58,24 @@ def meanrank(p, t):
 
 def readable_predictions(p, t, d, k, labeldict):
     out = []
+    labeldictKeys = list(labeldict.keys())
     for idx, item in enumerate(d):
         preds = p[idx,:k]
-        plabels = ','.join([labeldict.keys()[ii-1] if ii > 0 else '<unk>' for ii in preds])
-        tlabels = ','.join([labeldict.keys()[ii-1] if ii > 0 else '<unk>' for ii in t[idx]])
+        plabels = ','.join([labeldictKeys[ii-1] if ii > 0 else '<unk>' for ii in preds])
+        tlabels = ','.join([labeldictKeys[ii-1] if ii > 0 else '<unk>' for ii in t[idx]])
         out.append('%s\t%s\t%s\n'%(tlabels,plabels,item))
     return out
 
 def main(result_path, dict_path):
-    with open('%s/predictions.npy'%result_path,'r') as f:
+    with open('%s/predictions.npy'%result_path,'rb') as f:
         p = np.load(f)
-    with open('%s/targets.pkl'%result_path,'r') as f:
+    with open('%s/targets.pkl'%result_path,'rb') as f:
         t = pkl.load(f)
-    with open('%s/data.pkl'%result_path,'r') as f:
+    with open('%s/data.pkl'%result_path,'rb') as f:
         d = pkl.load(f)
-    with open('%s/embeddings.npy'%result_path,'r') as f:
+    with open('%s/embeddings.npy'%result_path,'rb') as f:
         e = np.load(f)
-    with open('%s/label_dict.pkl'%dict_path,'r') as f:
+    with open('%s/label_dict.pkl'%dict_path,'rb') as f:
         labeldict = pkl.load(f)
 
     readable = readable_predictions(p, t, d, 10, labeldict)

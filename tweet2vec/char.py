@@ -10,7 +10,7 @@ import random
 import sys
 import batch_char as batch
 import time
-import cPickle as pkl
+import _pickle as pkl
 import io
 import shutil
 
